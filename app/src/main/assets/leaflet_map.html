@@ -1,0 +1,54 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="utf-8" />-->
+<!--    <title>Leaflet Map</title>-->
+<!--    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />-->
+<!--    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="map" style="width: 100%; height: 100vh;"></div>-->
+<!--<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>-->
+<!--<script>-->
+<!--        var map = L.map('map').setView([19.99, 73.78], 13);-->
+<!--        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {-->
+<!--            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'-->
+<!--        }).addTo(map);-->
+<!--        L.marker([19.99, 73.78]).addTo(map)-->
+<!--            .bindPopup('A Leaflet Marker!')-->
+<!--            .openPopup();-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Leaflet Map with Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+<div id="map" style="width: 100%; height: 100vh;"></div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([19.99, 73.78], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Get user's location using Geolocation API
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var userLatLng = [position.coords.latitude, position.coords.longitude];
+
+        L.marker(userLatLng).addTo(map)
+            .bindPopup('Your Location')
+            .openPopup();
+
+        map.setView(userLatLng, 13);
+    }, function(error) {
+        console.error('Error getting location:', error);
+    });
+</script>
+</body>
+</html>
